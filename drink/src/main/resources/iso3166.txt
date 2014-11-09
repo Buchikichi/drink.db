@@ -1,0 +1,5 @@
+BEL	Belgium	ベルギー	べるぎー,べるじゃん
+DEU	Germany	ドイツ	どいつ,じゃーまん,じゃーまにー
+JPN	Japan	日本	にほん,にっぽん
+GBR	United Kingdom	イギリス	いぎりす,いんぐらんど
+USA	United States	アメリカ合衆国	あめりか

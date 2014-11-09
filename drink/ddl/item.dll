@@ -1,0 +1,6 @@
+CREATE TABLE `item` (
+  `itemId` char(32) COLLATE utf8_bin NOT NULL COMMENT 'アイテムID',
+  `nounId` char(32) COLLATE utf8_bin NOT NULL COMMENT '名称',
+  `synonym` text COLLATE utf8_bin NOT NULL COMMENT '同義語',
+  PRIMARY KEY (`itemId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='アイテム'

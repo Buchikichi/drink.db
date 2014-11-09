@@ -1,0 +1,5 @@
+CREATE TABLE `tags` (
+  `tagId` char(32) COLLATE utf8_bin NOT NULL COMMENT 'タグID',
+  `nounId` char(32) COLLATE utf8_bin NOT NULL COMMENT 'タグ名',
+  PRIMARY KEY (`tagId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='タグ'

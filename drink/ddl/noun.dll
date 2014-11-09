@@ -1,0 +1,6 @@
+CREATE TABLE `noun` (
+  `nounId` char(32) COLLATE utf8_bin NOT NULL COMMENT '名詞ID',
+  `countryCd` char(3) COLLATE utf8_bin NOT NULL COMMENT '国名コード',
+  `noun` text COLLATE utf8_bin NOT NULL COMMENT '名詞',
+  PRIMARY KEY (`nounId`,`countryCd`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='名詞'

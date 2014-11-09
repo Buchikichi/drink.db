@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import to.kit.drink.data.loader.Iso3166Loader;
+import to.kit.drink.data.loader.Iso639Loader;
 
 /**
  * DataInitializer.
@@ -21,10 +22,13 @@ import to.kit.drink.data.loader.Iso3166Loader;
 @Component
 public class DataInitializer {
 	@Autowired
-	private Iso3166Loader loader;
+	private Iso639Loader iso639Loader;
+	@Autowired
+	private Iso3166Loader iso3166Loader;
 
 	public void execute() throws SQLException, IOException {
-		this.loader.load();
+		this.iso639Loader.load();
+		this.iso3166Loader.load();
 	}
 
 	public static void main(String[] args) throws Exception {

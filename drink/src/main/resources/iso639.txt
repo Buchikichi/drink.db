@@ -1,0 +1,2 @@
+en	eng	English
+ja	jpn	日本語

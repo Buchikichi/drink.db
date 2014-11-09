@@ -74,16 +74,16 @@ public final class Iso3166Loader {
 				rec.setSynonym(elements[3]);
 				rec.setFlag(getImage(cd));
 				resultList.add(rec);
-				// USA
+				// English
 				Noun enNoun = new Noun();
 				enNoun.setNounId(id);
-				enNoun.setCountryCd("USA");
+				enNoun.setLang("en");
 				enNoun.setNoun(en);
 				nounList.add(enNoun);
-				// JPN
+				// Japanese
 				Noun jaNoun = new Noun();
 				jaNoun.setNounId(id);
-				jaNoun.setCountryCd("JPN");
+				jaNoun.setLang("ja");
 				jaNoun.setNoun(ja);
 				nounList.add(jaNoun);
 			}

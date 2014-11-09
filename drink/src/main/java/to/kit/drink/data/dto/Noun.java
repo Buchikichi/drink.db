@@ -13,10 +13,10 @@ public final class Noun {
 	@Id
 	@Column(name="nounId")
 	private String nounId;
-	/** 国名コード. */
+	/** 言語コード. */
 	@Id
-	@Column(name="countryCd")
-	private String countryCd;
+	@Column(name="lang")
+	private String lang;
 	/** 名詞. */
 	@Column(name="noun")
 	private String noun;
@@ -29,13 +29,13 @@ public final class Noun {
 	public void setNounId(String value) {
 		this.nounId = value;
 	}
-	/** 国名コード[char(3)]. */
-	public String getCountryCd() {
-		return this.countryCd;
+	/** 言語コード[char(2)]. */
+	public String getLang() {
+		return this.lang;
 	}
-	/** 国名コード[char(3)]. */
-	public void setCountryCd(String value) {
-		this.countryCd = value;
+	/** 言語コード[char(2)]. */
+	public void setLang(String value) {
+		this.lang = value;
 	}
 	/** 名詞[text]. */
 	public String getNoun() {

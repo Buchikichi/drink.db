@@ -15,6 +15,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import to.kit.drink.data.DBConnection;
+import to.kit.drink.data.util.QueryUtils;
 
 /**
  * Data access object.
@@ -71,7 +72,7 @@ abstract class DaoBase<T> {
 			if (prop == null) {
 				value = "null";
 			} else {
-				value = "'" + prop + "'";
+				value = QueryUtils.quote(prop);
 			}
 			valueList.add(value);
 		}
@@ -115,7 +116,7 @@ abstract class DaoBase<T> {
 				// nop
 			}
 			if (prop != null) {
-				String cond = column + "='" + prop + "'";
+				String cond = column + "=" + QueryUtils.quote(prop);
 				condList.add(cond);
 			}
 		}

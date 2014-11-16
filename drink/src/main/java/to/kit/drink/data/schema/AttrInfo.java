@@ -17,6 +17,11 @@ public final class AttrInfo {
 	public String getJavaType() {
 		String result = "String";
 
+		if ("int".equals(this.type)) {
+			result = "int";
+		} else {
+			result = "String";
+		}
 		return result;
 	}
 

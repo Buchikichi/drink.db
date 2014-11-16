@@ -11,14 +11,14 @@ import javax.persistence.Id;
 public final class Noun {
 	/** 名詞ID. */
 	@Id
-	@Column(name="nounId")
+	@Column(name="nounId", columnDefinition="char")
 	private String nounId;
 	/** 言語コード. */
 	@Id
-	@Column(name="lang")
+	@Column(name="lang", columnDefinition="char")
 	private String lang;
 	/** 名詞. */
-	@Column(name="noun")
+	@Column(name="noun", columnDefinition="text")
 	private String noun;
 
 	/** 名詞ID[char(32)]. */

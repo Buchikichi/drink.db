@@ -1,0 +1,5 @@
+#Beer
+ale	エール
+hop	ホップ
+lager	ラガー
+lambic	ランビック

@@ -115,6 +115,8 @@ public final class DataBeanCreator {
 			buff.append(INDENT);
 			buff.append("@Column(name=\"");
 			buff.append(name);
+			buff.append("\", columnDefinition=\"");
+			buff.append(attr.getType());
 			buff.append("\")");
 			buff.append(LF);
 			// definition
@@ -129,10 +131,10 @@ public final class DataBeanCreator {
 		return buff.toString();
 	}
 
-	public String make(EntityInfo entity) {
+	private String make(EntityInfo entity) {
 		StringBuilder buff = new StringBuilder();
 		String name = entity.getName();
-		String className = StringUtils.capitalize(name);
+		String className = getClassName(name);
 
 		buff.append("package ");
 		buff.append(PACKAGE);
@@ -171,10 +173,29 @@ public final class DataBeanCreator {
 		return buff.toString();
 	}
 
+	private String getClassName(String name) {
+		StringBuilder result = new StringBuilder();
+		boolean upper = true;
+
+		for (char ch : name.toCharArray()) {
+			if (ch == '_') {
+				upper = true;
+				continue;
+			}
+			if (upper) {
+				result.append(Character.toUpperCase(ch));
+				upper = false;
+			} else {
+				result.append(ch);
+			}
+		}
+		return result.toString();
+	}
+
 	private String makeFilename(String name) {
 		StringBuilder buff = new StringBuilder();
 		String pkg = PACKAGE.replace('.', File.separatorChar);
-		String className = StringUtils.capitalize(name);
+		String className = getClassName(name);
 
 		buff.append(BASE_PATH);
 		buff.append(File.separator);

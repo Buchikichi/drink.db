@@ -9,28 +9,28 @@ import javax.persistence.Id;
  */
 @Entity(name="tags")
 public final class Tags {
-	/** タグID. */
+	/** タグ種類. */
 	@Id
-	@Column(name="tagId")
+	@Column(name="tagId", columnDefinition="char")
 	private String tagId;
-	/** タグ名. */
-	@Column(name="nounId")
-	private String nounId;
+	/** タグID. */
+	@Column(name="kindId", columnDefinition="char")
+	private String kindId;
 
-	/** タグID[char(32)]. */
+	/** タグ種類[char(32)]. */
 	public String getTagId() {
 		return this.tagId;
 	}
-	/** タグID[char(32)]. */
+	/** タグ種類[char(32)]. */
 	public void setTagId(String value) {
 		this.tagId = value;
 	}
-	/** タグ名[char(32)]. */
-	public String getNounId() {
-		return this.nounId;
+	/** タグID[char(32)]. */
+	public String getKindId() {
+		return this.kindId;
 	}
-	/** タグ名[char(32)]. */
-	public void setNounId(String value) {
-		this.nounId = value;
+	/** タグID[char(32)]. */
+	public void setKindId(String value) {
+		this.kindId = value;
 	}
 }

@@ -20,7 +20,7 @@ import to.kit.drink.data.dto.Iso639;
  * @author H.Sasai
  */
 @Component
-public final class Iso639Loader {
+public final class Iso639Loader implements Loadable {
 	/** ファイル名. */
 	private static final String RESOURCE = "/iso639.txt";
 	@Autowired
@@ -50,6 +50,7 @@ public final class Iso639Loader {
 		return resultList;
 	}
 
+	@Override
 	public void load() throws IOException, SQLException {
 		List<Iso639> countryList = loadResource();
 

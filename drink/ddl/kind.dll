@@ -1,0 +1,4 @@
+CREATE TABLE `kind` (
+  `kindId` char(32) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`kindId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='種類'

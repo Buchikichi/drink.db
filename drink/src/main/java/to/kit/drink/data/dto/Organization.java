@@ -11,16 +11,16 @@ import javax.persistence.Id;
 public final class Organization {
 	/** 組織ID. */
 	@Id
-	@Column(name="orgId")
+	@Column(name="orgId", columnDefinition="char")
 	private String orgId;
 	/** 国名コード. */
-	@Column(name="countryCd")
+	@Column(name="countryCd", columnDefinition="char")
 	private String countryCd;
 	/** 名称. */
-	@Column(name="nounId")
+	@Column(name="nounId", columnDefinition="char")
 	private String nounId;
 	/** 読み. */
-	@Column(name="reading")
+	@Column(name="reading", columnDefinition="text")
 	private String reading;
 
 	/** 組織ID[char(32)]. */

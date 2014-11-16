@@ -11,10 +11,10 @@ import javax.persistence.Id;
 public final class Iso639 {
 	/** 言語コード. */
 	@Id
-	@Column(name="lang")
+	@Column(name="lang", columnDefinition="char")
 	private String lang;
 	/** 原語名. */
-	@Column(name="name")
+	@Column(name="name", columnDefinition="text")
 	private String name;
 
 	/** 言語コード[char(2)]. */

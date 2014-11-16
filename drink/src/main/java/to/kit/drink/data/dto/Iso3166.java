@@ -11,16 +11,16 @@ import javax.persistence.Id;
 public final class Iso3166 {
 	/** 国名コード. */
 	@Id
-	@Column(name="countryCd")
+	@Column(name="countryCd", columnDefinition="char")
 	private String countryCd;
 	/** 名詞ID. */
-	@Column(name="nounId")
+	@Column(name="nounId", columnDefinition="char")
 	private String nounId;
 	/** 同義語. */
-	@Column(name="synonym")
+	@Column(name="synonym", columnDefinition="text")
 	private String synonym;
 	/** 旗(base64). */
-	@Column(name="flag")
+	@Column(name="flag", columnDefinition="text")
 	private String flag;
 
 	/** 国名コード[char(3)]. */

@@ -1,0 +1,5 @@
+CREATE TABLE `attr` (
+  `attrId` char(32) COLLATE utf8_bin NOT NULL COMMENT '属性ID',
+  `presentation` int(11) NOT NULL COMMENT 'プレゼンテーション',
+  PRIMARY KEY (`attrId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='属性'

@@ -1,0 +1,5 @@
+CREATE TABLE `iso639` (
+  `lang` char(2) COLLATE utf8_bin NOT NULL COMMENT '言語コード',
+  `name` text COLLATE utf8_bin NOT NULL COMMENT '原語名',
+  PRIMARY KEY (`lang`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='ISO 639-1'

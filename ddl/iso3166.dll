@@ -1,0 +1,7 @@
+CREATE TABLE `iso3166` (
+  `countryCd` char(3) COLLATE utf8_bin NOT NULL COMMENT '国名コード',
+  `nounId` char(32) COLLATE utf8_bin NOT NULL COMMENT '名詞ID',
+  `synonym` text COLLATE utf8_bin NOT NULL COMMENT '同義語',
+  `flag` text COLLATE utf8_bin NOT NULL COMMENT '旗(base64)',
+  PRIMARY KEY (`countryCd`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='ISO 3166-1'

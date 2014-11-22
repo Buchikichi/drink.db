@@ -1,0 +1,4 @@
+# presentation
+#   0:numeric
+#   1:percentage
+ABV	アルコール度数	1

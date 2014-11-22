@@ -1,0 +1,7 @@
+CREATE TABLE `organization` (
+  `orgId` char(32) COLLATE utf8_bin NOT NULL COMMENT '組織ID',
+  `countryCd` char(3) COLLATE utf8_bin NOT NULL COMMENT '国名コード',
+  `nounId` char(32) COLLATE utf8_bin NOT NULL COMMENT '名称',
+  `reading` text COLLATE utf8_bin NOT NULL COMMENT '読み',
+  PRIMARY KEY (`orgId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='組織'

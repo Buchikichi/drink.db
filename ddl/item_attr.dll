@@ -1,0 +1,6 @@
+CREATE TABLE `item_attr` (
+  `itemId` char(32) COLLATE utf8_bin NOT NULL COMMENT 'アイテムID',
+  `attrId` char(32) COLLATE utf8_bin NOT NULL COMMENT '属性ID',
+  `val` text COLLATE utf8_bin NOT NULL COMMENT '属性値',
+  PRIMARY KEY (`itemId`,`attrId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin

@@ -3,10 +3,14 @@ package to.kit.drink.data.dao;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -127,5 +131,37 @@ abstract class DaoBase<T> {
 		try (Statement stmt = this.conn.createStatement()) {
 			return stmt.executeUpdate(buff.toString());
 		}
+	}
+
+	private List<String> getColumnList(ResultSet rs) throws SQLException {
+		List<String> columnList = new ArrayList<>();
+		ResultSetMetaData metaData = rs.getMetaData();
+		int columnCount = metaData.getColumnCount();
+
+		for (int column = 1; column <= columnCount; column++) {
+			columnList.add(metaData.getColumnName(column));
+		}
+		return columnList;
+	}
+
+	protected List<Map<String, Object>> select(String query)
+			throws SQLException {
+		List<Map<String, Object>> resultList = new ArrayList<>();
+
+		try (Statement stmt = this.conn.createStatement()) {
+			try (ResultSet rs = stmt.executeQuery(query)) {
+				List<String> columnList = getColumnList(rs);
+
+				while (rs.next()) {
+					Map<String, Object> rec = new HashMap<>();
+
+					for (String column : columnList) {
+						rec.put(column, rs.getObject(column));
+					}
+					resultList.add(rec);
+				}
+			}
+		}
+		return resultList;
 	}
 }

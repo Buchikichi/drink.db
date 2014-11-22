@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import to.kit.drink.data.loader.AttrLoader;
 import to.kit.drink.data.loader.Iso3166Loader;
 import to.kit.drink.data.loader.Iso639Loader;
+import to.kit.drink.data.loader.ItemLoader;
 import to.kit.drink.data.loader.KindLoader;
 import to.kit.drink.data.loader.Loadable;
 import to.kit.drink.data.loader.OrganizationLoader;
@@ -47,10 +48,13 @@ public class DataInitializer {
 	private TagsLoader tagsLoader;
 	@Autowired
 	private OrganizationLoader organizationLoader;
+	@Autowired
+	private ItemLoader itemLoader;
 
 	private Loadable selectLoader(String name) {
 		Loadable result = null;
-		String fieldName = name + "Loader";
+		String[] names = name.split("#");
+		String fieldName = names[0] + "Loader";
 
 		try {
 			Field field = DataInitializer.class.getDeclaredField(fieldName);

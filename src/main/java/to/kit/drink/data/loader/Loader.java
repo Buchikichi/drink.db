@@ -30,6 +30,16 @@ abstract class Loader<T> implements Loadable {
 	/** MD5. */
 	private MD5 md5 = MD5.getInstance();
 
+	private String conjectureKindId(Sheet sheet) {
+		String name = sheet.getSheetName();
+		String[] names = name.split("#");
+
+		if (names.length == 1) {
+			return null;
+		}
+		return md5digest(names[1]);
+	}
+
 	/**
 	 * シート読み込み.
 	 * @param sheet シート
@@ -38,7 +48,7 @@ abstract class Loader<T> implements Loadable {
 	protected List<Map<String, Object>> loadSheet(Sheet sheet) {
 		List<Map<String, Object>> resultList = new ArrayList<>();
 		List<String> headerList = new ArrayList<>();
-		String kindId = null;
+		String kindId = conjectureKindId(sheet);
 
 		for (Row row : sheet) {
 			boolean isHeader = headerList.isEmpty();

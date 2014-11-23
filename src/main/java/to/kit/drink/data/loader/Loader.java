@@ -1,22 +1,28 @@
 package to.kit.drink.data.loader;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Base64.Encoder;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import to.kit.drink.data.dto.Iso3166;
 import to.kit.drink.data.util.MD5;
 
 /**
@@ -25,8 +31,10 @@ import to.kit.drink.data.util.MD5;
  * @author H.Sasai
  */
 abstract class Loader<T> implements Loadable {
+	/** Thumbnail size. */
+	private static final int THUMBNAIL_SIZE = 64;
 	/** Base64. */
-	Encoder base64 = Base64.getEncoder();
+	private Encoder base64 = Base64.getEncoder();
 	/** MD5. */
 	private MD5 md5 = MD5.getInstance();
 
@@ -90,6 +98,26 @@ abstract class Loader<T> implements Loadable {
 		return resultList;
 	}
 
+	private byte[] getImage(String name) {
+		byte[] result = null;
+		final String[] targets = {".png", ".jpg"};
+
+		for (String ext : targets) {
+			String filename = name + ext;
+			URL url = Loader.class.getResource(filename);
+
+			if (url == null) {
+				continue;
+			}
+			try (InputStream in = Loader.class.getResourceAsStream(filename)) {
+				result = IOUtils.toByteArray(in);
+			} catch (IOException e) {
+				// nop
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * 画像データを取得.
 	 * @param path
@@ -98,17 +126,49 @@ abstract class Loader<T> implements Loadable {
 	 */
 	protected String getImage(String path, String cd) {
 		String result = null;
-		String name = path + File.separator + cd.toLowerCase() + ".png";
-		URL url = Iso3166Loader.class.getResource(name);
-		if (url == null) {
-			return null;
-		}
-		try (InputStream stream = Iso3166.class.getResourceAsStream(name)) {
-			byte[] bytes = IOUtils.toByteArray(stream);
+		String name = path + File.separator + cd.toLowerCase();
+		byte[] bytes = getImage(name);
 
+		if (bytes != null) {
 			result = this.base64.encodeToString(bytes);
+		}
+		return result;
+	}
+
+	private byte[] makeThumbnail(byte[] bytes) {
+		byte[] result = null;
+		try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			try (InputStream in = new ByteArrayInputStream(bytes)) {
+				BufferedImage srcImg = ImageIO.read(in);
+				Image thumbImg = srcImg.getScaledInstance(THUMBNAIL_SIZE,
+						THUMBNAIL_SIZE, Image.SCALE_SMOOTH);
+				BufferedImage dstImg = new BufferedImage(THUMBNAIL_SIZE,
+						THUMBNAIL_SIZE, srcImg.getType());
+				Graphics2D g = dstImg.createGraphics();
+
+				g.drawImage(thumbImg, 0, 0, null);
+				ImageIO.write(dstImg, "jpeg", out);
+			}
+			result = out.toByteArray();
 		} catch (IOException e) {
 			// nop
+		}
+		return result;
+	}
+
+	/**
+	 * サムネイルを取得.
+	 * @param path
+	 * @param cd
+	 * @return Base64形式の画像データ
+	 */
+	protected String getThumbnail(String path, String cd) {
+		String result = null;
+		String name = path + File.separator + cd.toLowerCase();
+		byte[] bytes = getImage(name);
+
+		if (bytes != null) {
+			result = this.base64.encodeToString(makeThumbnail(bytes));
 		}
 		return result;
 	}

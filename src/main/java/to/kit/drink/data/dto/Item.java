@@ -29,7 +29,7 @@ public final class Item {
 	@Column(name="thumbnail", columnDefinition="text")
 	private String thumbnail;
 	/** イメージ. */
-	@Column(name="imgsrc", columnDefinition="text")
+	@Column(name="imgsrc", columnDefinition="mediumtext")
 	private String imgsrc;
 
 	/** アイテムID[char(32)]. */
@@ -80,11 +80,11 @@ public final class Item {
 	public void setThumbnail(String value) {
 		this.thumbnail = value;
 	}
-	/** イメージ[text]. */
+	/** イメージ[mediumtext]. */
 	public String getImgsrc() {
 		return this.imgsrc;
 	}
-	/** イメージ[text]. */
+	/** イメージ[mediumtext]. */
 	public void setImgsrc(String value) {
 		this.imgsrc = value;
 	}

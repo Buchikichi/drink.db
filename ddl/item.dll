@@ -5,6 +5,6 @@ CREATE TABLE `item` (
   `noteId` char(32) COLLATE utf8_bin NOT NULL COMMENT '名称',
   `synonym` text COLLATE utf8_bin NOT NULL COMMENT '同義語',
   `thumbnail` text COLLATE utf8_bin COMMENT 'サムネイル',
-  `imgsrc` text COLLATE utf8_bin COMMENT 'イメージ',
+  `imgsrc` mediumtext COLLATE utf8_bin COMMENT 'イメージ',
   PRIMARY KEY (`itemId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='アイテム'

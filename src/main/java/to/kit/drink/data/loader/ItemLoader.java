@@ -71,6 +71,7 @@ public final class ItemLoader extends Loader<Tags> {
 			String ja = row.getJa();
 			String jaNote = row.getJaNote();
 			String itemId = md5digest(TYPE + en);
+			String noteId = md5digest(TYPE + "note" + en);
 			String tags = row.getTags();
 			String brewer = row.getBrewer();
 			List<String> synonymList = new ArrayList<>();
@@ -84,11 +85,14 @@ public final class ItemLoader extends Loader<Tags> {
 			rec.setItemId(itemId);
 			rec.setKindId(row.getKindId());
 			rec.setCountryCd(row.getCountryCd());
-			rec.setNoteId(""); // TODO Note
+			rec.setNoteId(noteId);
 			String synonym = StringUtils.join(synonymList, '\t');
 			synonym = synonym.replaceAll("[ ・]", "");
 			rec.setSynonym(synonym);
-			String img = en.toLowerCase().replaceAll("[\\s]", "");
+			String img = row.getImg();
+			if (StringUtils.isBlank(img)) {
+				img = en.toLowerCase().replaceAll("[\\s]", "");
+			}
 			String imgpath = IMG_PATH + "beer" + File.separator
 					+ row.getCountryCd();
 			rec.setThumbnail(getThumbnail(imgpath, img));
@@ -105,9 +109,14 @@ public final class ItemLoader extends Loader<Tags> {
 				itemAttrList.add(itemAttr);
 			}
 			// Tags
-			for (String tag : tags.split(",")) {
+			for (String str : tags.split("[,]")) {
+				String tag = str.trim();
+				if (tag.isEmpty()) {
+					continue;
+				}
 				String tagId = this.tagsDao.getTagId(tag);
 				if (tagId == null) {
+					System.err.println("Unknown tag:" + tag);
 					continue;
 				}
 				ItemTags itemTags = new ItemTags();
@@ -115,18 +124,16 @@ public final class ItemLoader extends Loader<Tags> {
 				itemTags.setTagId(tagId);
 				itemTagsList.add(itemTags);
 			}
-			// English
-			Noun enNoun = new Noun();
-			enNoun.setNounId(itemId);
-			enNoun.setLang("en");
-			enNoun.setNoun(en);
-			nounList.add(enNoun);
-			// Japanese
-			Noun jaNoun = new Noun();
-			jaNoun.setNounId(itemId);
-			jaNoun.setLang("ja");
-			jaNoun.setNoun(ja);
-			nounList.add(jaNoun);
+			// Item name
+			nounList.add(NounDao.createNoun(itemId, "en", en));
+			nounList.add(NounDao.createNoun(itemId, "ja", ja));
+			// Item note
+			if (StringUtils.isNotBlank(enNote)) {
+				nounList.add(NounDao.createNoun(noteId, "en", enNote));
+			}
+			if (StringUtils.isNotBlank(jaNote)) {
+				nounList.add(NounDao.createNoun(noteId, "ja", jaNote));
+			}
 		}
 		for (Noun rec : nounList) {
 			this.nounDao.delete(rec);
